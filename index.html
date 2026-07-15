@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hello World — a small, joyful homage to the two words that start every programmer's journey. History, examples, and a warm welcome to the craft.">
+<title>Hello World — Where Every Program Begins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1d29;
+    --ink-soft: #4b5065;
+    --paper: #fdfcf9;
+    --cream: #f5f1e8;
+    --accent: #2f6df6;
+    --accent-dark: #1d4ed8;
+    --terminal: #14161f;
+    --terminal-green: #6ee7a0;
+    --terminal-dim: #8b93a7;
+    --border: #e6e1d5;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  code, pre { font-family: "JetBrains Mono", monospace; }
+
+  /* Header */
+  header.site {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(253, 252, 249, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; max-width: 1080px; margin: 0 auto;
+  }
+  .brand {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500; font-size: 1rem; color: var(--ink);
+  }
+  .brand span { color: var(--accent); }
+  nav.anchors { display: flex; gap: 28px; }
+  nav.anchors a {
+    font-size: 0.9rem; font-weight: 500; color: var(--ink-soft);
+  }
+  nav.anchors a:hover { color: var(--accent); text-decoration: none; }
+  @media (max-width: 640px) { nav.anchors { display: none; } }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(ellipse 900px 500px at 70% -10%, #e8efff 0%, transparent 60%),
+      var(--cream);
+    padding: 96px 0 88px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .kicker {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-dark);
+    background: #e5edff;
+    border: 1px solid #cddcff;
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .wave { display: inline-block; }
+  .hero p.sub {
+    max-width: 560px; margin: 24px auto 0;
+    font-size: 1.15rem; color: var(--ink-soft);
+  }
+  .hero .cursor {
+    display: inline-block; width: 0.55em; height: 1em;
+    background: var(--accent); vertical-align: -0.12em;
+    margin-left: 6px; border-radius: 2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero .cta-row { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 28px; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem; transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 109, 246, 0.28);
+  }
+  .btn-primary:hover { background: var(--accent-dark); box-shadow: 0 10px 24px rgba(47, 109, 246, 0.35); }
+  .btn-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* Sections */
+  section { padding: 88px 0; }
+  .section-head { max-width: 620px; margin-bottom: 48px; }
+  .section-head .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-dark); font-weight: 500;
+  }
+  .section-head h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-top: 10px; letter-spacing: -0.01em;
+  }
+  .section-head p { margin-top: 14px; color: var(--ink-soft); }
+
+  /* Languages grid */
+  .lang-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .lang-card {
+    background: var(--terminal);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(20, 22, 31, 0.15);
+  }
+  .lang-card .bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 16px;
+    background: #1e2230;
+    border-bottom: 1px solid #2a2f42;
+  }
+  .lang-card .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+  .lang-card .filename {
+    margin-left: auto; font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem; color: var(--terminal-dim);
+  }
+  .lang-card pre {
+    padding: 20px 18px; font-size: 0.85rem; line-height: 1.7;
+    color: var(--terminal-green); overflow-x: auto;
+  }
+  .lang-card pre .c { color: var(--terminal-dim); }
+  .lang-card pre .k { color: #7aa2ff; }
+  .lang-card pre .s { color: #ffd580; }
+
+  /* History timeline */
+  .history { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .timeline { display: grid; gap: 0; max-width: 720px; }
+  .t-item {
+    display: grid; grid-template-columns: 110px 1fr; gap: 24px;
+    padding: 26px 0; border-bottom: 1px dashed #d8d2c2;
+  }
+  .t-item:last-child { border-bottom: none; }
+  .t-year {
+    font-family: "Fraunces", serif; font-size: 1.6rem; font-weight: 600;
+    color: var(--accent-dark);
+  }
+  .t-item h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  .t-item p { color: var(--ink-soft); font-size: 0.98rem; }
+  @media (max-width: 560px) {
+    .t-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* Why it matters */
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  .why-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 30px 26px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .why-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(26, 29, 41, 0.08); }
+  .why-card .icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: #e5edff; color: var(--accent-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 18px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .why-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .why-card p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  /* Quotes */
+  .quotes { background: var(--terminal); color: #e8eaf2; }
+  .quotes .section-head .eyebrow { color: #8fb0ff; }
+  .quotes .section-head p { color: #a7adc2; }
+  .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+  .quote-card {
+    background: #1e2230; border: 1px solid #2a2f42;
+    border-radius: var(--radius); padding: 30px 28px;
+  }
+  .quote-card blockquote {
+    font-family: "Fraunces", serif; font-size: 1.15rem; line-height: 1.5;
+  }
+  .quote-card blockquote::before { content: "\201C"; color: #7aa2ff; font-size: 1.6rem; }
+  .quote-card cite {
+    display: block; margin-top: 18px; font-style: normal;
+    font-family: "JetBrains Mono", monospace; font-size: 0.8rem; color: var(--terminal-dim);
+  }
+  .quote-card cite::before { content: "— "; }
+
+  /* Say hello */
+  .say-hello { text-align: center; }
+  .say-hello .section-head { margin: 0 auto 40px; }
+  .hello-box {
+    max-width: 560px; margin: 0 auto;
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 44px 32px;
+  }
+  .hello-box p.big {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.05rem; margin-bottom: 8px;
+  }
+  .hello-box a.mail {
+    font-family: "Fraunces", serif; font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: 600; color: var(--ink);
+    border-bottom: 3px solid var(--accent);
+  }
+  .hello-box a.mail:hover { color: var(--accent-dark); text-decoration: none; }
+  .hello-box .langs {
+    margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  }
+  .hello-box .langs span {
+    font-size: 0.85rem; color: var(--ink-soft);
+    background: #fff; border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 999px;
+  }
+
+  /* Footer */
+  footer.site {
+    background: var(--terminal); color: var(--terminal-dim);
+    padding: 40px 0; border-top: 1px solid #2a2f42;
+  }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer.site .brand { color: #e8eaf2; }
+  footer.site p { font-size: 0.85rem; }
+  footer.site code { color: var(--terminal-green); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">hello<span>_</span>world</div>
+    <nav class="anchors" aria-label="Page sections">
+      <a href="#languages">Languages</a>
+      <a href="#history">History</a>
+      <a href="#why">Why It Matters</a>
+      <a href="#say-hello">Say Hello</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="kicker">stdout &gt; everyone</span>
+      <h1>Hello, World<span class="wave">!</span><span class="cursor" aria-hidden="true"></span></h1>
+      <p class="sub">Two words. One newline. The first thing every program ever says — and a small celebration of the moment every programmer's journey begins.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#languages">See It in 4 Languages</a>
+        <a class="btn btn-ghost" href="#history">Read the History</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section id="languages">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">01 · Polyglot</span>
+        <h2>The same greeting, everywhere</h2>
+        <p>Every language has its own accent, but they all know how to say hello. Here it is in four classics — copy one, run it, and you're officially a programmer.</p>
+      </div>
+      <div class="lang-grid">
+        <article class="lang-card">
+          <div class="bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="filename">hello.c</span></div>
+          <pre><span class="c">/* the original */</span>
+<span class="k">#include</span> <span class="s">&lt;stdio.h&gt;</span>
+
+<span class="k">int</span> main(<span class="k">void</span>) {
+    printf(<span class="s">"Hello, World!\n"</span>);
+    <span class="k">return</span> 0;
+}</pre>
+        </article>
+        <article class="lang-card">
+          <div class="bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="filename">hello.py</span></div>
+          <pre><span class="c"># one line, no ceremony</span>
+<span class="k">print</span>(<span class="s">"Hello, World!"</span>)</pre>
+        </article>
+        <article class="lang-card">
+          <div class="bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="filename">hello.js</span></div>
+          <pre><span class="c">// the language of the web</span>
+console.log(<span class="s">"Hello, World!"</span>);</pre>
+        </article>
+        <article class="lang-card">
+          <div class="bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="filename">hello.rs</span></div>
+          <pre><span class="c">// fearless and friendly</span>
+<span class="k">fn</span> main() {
+    println!(<span class="s">"Hello, World!"</span>);
+}</pre>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section class="history" id="history">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">02 · Origins</span>
+        <h2>A short history of two famous words</h2>
+        <p>"Hello, World" wasn't planned as a tradition. It just happened — and then it never stopped happening.</p>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-year">1972</div>
+          <div>
+            <h3>First sighting at Bell Labs</h3>
+            <p>Brian Kernighan uses "hello, world" in an internal tutorial for the B programming language — reportedly inspired by a cartoon of a chick hatching from an egg and saying hello to the world.</p>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1978</div>
+          <div>
+            <h3>The C book makes it canon</h3>
+            <p><em>The C Programming Language</em> by Kernighan &amp; Ritchie opens with the hello world program as its very first example. Millions of readers type it in, and a ritual is born.</p>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1990s</div>
+          <div>
+            <h3>Every language joins in</h3>
+            <p>As Python, Java, JavaScript, and dozens of other languages emerge, each one's documentation begins the same way. Writing hello world becomes the universal first step — and an informal benchmark of how friendly a language is.</p>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">Today</div>
+          <div>
+            <h3>Billions of hellos</h3>
+            <p>It's the first commit in countless repositories, the first message from new frameworks, and the first small victory for every person learning to code. Including, quite possibly, you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why it matters -->
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">03 · Meaning</span>
+        <h2>Why a tiny program matters</h2>
+        <p>It looks trivial. It isn't. Hello world quietly proves several important things at once.</p>
+      </div>
+      <div class="why-grid">
+        <article class="why-card">
+          <div class="icon">&gt;_</div>
+          <h3>Proof of life</h3>
+          <p>Compiler installed? Path configured? Editor working? One successful hello world confirms your entire toolchain in a single line of output.</p>
+        </article>
+        <article class="why-card">
+          <div class="icon">{}</div>
+          <h3>The smallest complete program</h3>
+          <p>It shows the essential skeleton of a language — what a program looks like, how it starts, and how it speaks to the outside world.</p>
+        </article>
+        <article class="why-card">
+          <div class="icon">!</div>
+          <h3>A first victory</h3>
+          <p>Learning to code is a long road. Hello world is the first mile marker — small, quick, and genuinely encouraging. Everyone remembers their first one.</p>
+        </article>
+        <article class="why-card">
+          <div class="icon">∞</div>
+          <h3>A shared tradition</h3>
+          <p>From students in classrooms to engineers testing new hardware, everyone starts the same way. It's a handshake shared across generations of programmers.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quotes -->
+  <section class="quotes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">04 · Voices</span>
+        <h2>What people remember</h2>
+        <p>Ask any developer about their first hello world, and you'll get a story.</p>
+      </div>
+      <div class="quote-grid">
+        <article class="quote-card">
+          <blockquote>I stared at the terminal for a full minute after it printed. Two words, and suddenly the computer wasn't a black box anymore — it was something I could talk to.</blockquote>
+          <cite>Maya R., self-taught developer</cite>
+        </article>
+        <article class="quote-card">
+          <blockquote>Twenty years and six languages later, it's still the first thing I write on any new machine. It's superstition at this point. Good superstition.</blockquote>
+          <cite>Daniel O., systems engineer</cite>
+        </article>
+        <article class="quote-card">
+          <blockquote>I teach intro programming, and the room always goes quiet when the first hello world runs. Then someone laughs. That laugh is why I teach.</blockquote>
+          <cite>Prof. Anita K., computer science lecturer</cite>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Say hello -->
+  <section class="say-hello" id="say-hello">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">05 · Contact</span>
+        <h2>Your turn to say hello</h2>
+        <p>This page said hello to you. Fair is fair — say it back, in any language you like.</p>
+      </div>
+      <div class="hello-box">
+        <p class="big">echo "your greeting" | mail</p>
+        <a class="mail" href="mailto:hello@hello-world-9677.sites.tibly.ai">hello@hello-world-9677.sites.tibly.ai</a>
+        <div class="langs">
+          <span>Hello</span>
+          <span>Hola</span>
+          <span>Bonjour</span>
+          <span>こんにちは</span>
+          <span>안녕하세요</span>
+          <span>Olá</span>
+          <span>Hallo</span>
+          <span>مرحبا</span>
+          <span>你好</span>
+          <span>Ciao</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap foot-inner">
+    <div>
+      <div class="brand">hello<span style="color:#7aa2ff">_</span>world</div>
+      <p>© 2025 Hello World · hello-world-9677.sites.tibly.ai</p>
+    </div>
+    <p><code>Process finished with exit code 0</code></p>
+  </div>
+</footer>
+
+  <script async src="https://api.tibly.ai/widget/v1.js"></script>
+</body>
+</html>
